@@ -1,37 +1,39 @@
-<!-- sidebar-widget.html -->
+<!-- expanded-sidebar-widget.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Responsive Sidebar</title>
+  <title>Expanded Sidebar</title>
   <style>
-    /* Global Styles */
     body, html { margin: 0; font-family: Arial, sans-serif; }
-    .sidebar { width: 250px; height: 100vh; background-color: #333; color: white; position: fixed; top: 0; left: -250px; transition: left 0.3s; }
-    .sidebar.open { left: 0; }
-    .sidebar a { color: white; padding: 15px; text-decoration: none; display: block; }
-    .sidebar a:hover { background-color: #575757; }
-    .toggle-btn { position: absolute; top: 20px; left: 20px; background-color: #333; color: white; border: none; padding: 10px; cursor: pointer; }
-    .toggle-btn:focus { outline: none; }
+    .sidebar { 
+      width: 250px; 
+      height: 100%; 
+      background-color: #333; 
+      color: white; 
+      position: relative; /* remove fixed so it fits in iframe */
+      left: 0; /* always expanded */
+      padding-top: 20px;
+      box-sizing: border-box;
+    }
+    .sidebar a { 
+      color: white; 
+      padding: 15px; 
+      text-decoration: none; 
+      display: block; 
+    }
+    .sidebar a:hover { 
+      background-color: #575757; 
+    }
     @media (max-width: 768px) {
-      .sidebar { width: 200px; }
+      .sidebar { width: 100%; } /* optional responsiveness inside iframe */
     }
   </style>
 </head>
 <body>
-  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
   <div class="sidebar">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
-  </div>
-
-  <script>
-    function toggleSidebar() {
-      document.querySelector('.sidebar').classList.toggle('open');
-    }
-  </script>
-</body>
-</html>
+    <a href="https://yourtenant.sharepoint.com/sites/YourSite" target="_top">Home</a>
+    <a href="https://yourtenant.sharepoint.com/sites/YourSite/SitePages/About.aspx" target="_top">About</a>
+    <a href="https://yourtenant.sharepoint.com/sites/YourSite/Shared%20Documents/Forms/AllItems.aspx" target="_top">Documents</a>
+    <a href="https://yourtenant.sharepoint.com/sites/YourS
