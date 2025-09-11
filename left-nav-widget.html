@@ -1,0 +1,73 @@
+<!-- widget.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Custom Sidebar</title>
+  <style>
+    :root{
+      --bg:#1e1e2d; --accent:#f9d342; --text:#ffffff; --muted:#cfcfd6;
+    }
+    html,body{height:100%; margin:0; font-family: "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;}
+    .wrap{box-sizing:border-box; padding:16px; background:linear-gradient(180deg,var(--bg), #151521); color:var(--text); min-height:100%;}
+    .card{width:100%; max-width:280px; border-radius:12px; padding:12px; box-sizing:border-box; background:rgba(255,255,255,0.03);}
+    h1{font-size:16px; margin:0 0 8px; color:var(--accent);}
+    nav ul{list-style:none; padding:0; margin:0;}
+    nav li{margin:10px 0;}
+    a.item{
+      display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-size:14px; padding:8px; border-radius:8px;
+    }
+    a.item:hover{background:rgba(255,255,255,0.03);}
+    .icon{width:28px;height:28px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.15);}
+    .small{font-size:13px;color:var(--muted);}
+    .search{margin:8px 0;}
+    .search input{width:100%; padding:8px;border-radius:8px;border:0;background:rgba(255,255,255,0.02);color:var(--text);}
+    @media (max-width:420px){ .card{max-width:100%; padding:10px;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="navigation" aria-label="Site navigation">
+      <h1>Menu</h1>
+
+      <div class="search" aria-hidden="false">
+        <input id="nav-search" placeholder="Search links..." />
+      </div>
+
+      <nav>
+        <ul id="nav-list">
+          <!-- change the hrefs to full absolute URLs (recommended) -->
+          <li><a class="item" href="https://yourtenant.sharepoint.com/sites/YourSite" target="_top"><span class="icon">🏠</span><span>Home</span></a></li>
+          <li><a class="item" href="https://yourtenant.sharepoint.com/sites/YourSite/Shared%20Documents/Forms/AllItems.aspx" target="_top"><span class="icon">📂</span><span>Documents</span></a></li>
+          <li><a class="item" href="https://yourtenant.sharepoint.com/sites/YourSite/SitePages/About.aspx" target="_top"><span class="icon">ℹ️</span><span>About</span></a></li>
+          <li><a class="item" href="https://yourtenant.sharepoint.com/sites/YourSite/SitePages/TeamCalendar.aspx" target="_top"><span class="icon">📅</span><span>Calendar</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="small" style="margin-top:12px">Tip: links open in the main window.</div>
+    </div>
+  </div>
+
+  <script>
+    // small search filter, keeps links opening in parent
+    (function(){
+      var input = document.getElementById('nav-search');
+      var list = document.getElementById('nav-list');
+      input.addEventListener('input', function(){
+        var q = input.value.toLowerCase();
+        Array.from(list.children).forEach(function(li){
+          var text = li.textContent.toLowerCase();
+          li.style.display = text.indexOf(q) === -1 ? 'none' : '';
+        });
+      });
+
+      // ensure anchors open top-level window (so clicks navigate whole SharePoint page)
+      Array.from(document.querySelectorAll('a')).forEach(function(a){
+        a.setAttribute('target','_top');
+        a.setAttribute('rel','noopener noreferrer');
+      });
+    })();
+  </script>
+</body>
+</html>
